@@ -1,3 +1,14 @@
 <resources>
     <string name="app_name">Halo Tani</string>
+    <string name="image">image</string>
+    <string name="title_activity_home">MainActivity</string>
+    <string name="title_home">Beranda</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="title_history">Riwayat</string>
+    <string name="title_profile">Profil</string>
+    <string name="title_message">Pesan</string>
+    <string name="title_other">Lainnya</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

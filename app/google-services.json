@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "774275007319",
+    "project_id": "halotani-6da48",
+    "storage_bucket": "halotani-6da48.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:774275007319:android:a9a5b4855b9c2b4f867412",
+        "android_client_info": {
+          "package_name": "com.halotani.halotani"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "774275007319-70bkih7tpi9miku28tasuim1tcta106n.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAIsCrk3-YbbkTGAMyYH1RUFHjudvB--oE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "774275007319-70bkih7tpi9miku28tasuim1tcta106n.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
