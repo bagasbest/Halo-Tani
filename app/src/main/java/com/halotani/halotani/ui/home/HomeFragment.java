@@ -62,6 +62,13 @@ public class HomeFragment extends Fragment {
                 startActivity(new Intent(getActivity(), ArticleActivity.class));
             }
         });
+
+        binding.view2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
     }
 
     private void checkLoginUser() {

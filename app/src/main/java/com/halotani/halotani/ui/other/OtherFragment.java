@@ -4,6 +4,8 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
@@ -38,6 +40,19 @@ public class OtherFragment extends Fragment {
         return binding.getRoot();
     }
 
+    @Override
+    public void onViewCreated(@NonNull @NotNull View view, @Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        binding.becomeExpert.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+
+    }
+
     private void clickLoginOrLogout() {
         if(FirebaseAuth.getInstance().getCurrentUser() != null) {
             binding.authBtn.setOnClickListener(new View.OnClickListener() {
@@ -56,7 +71,6 @@ public class OtherFragment extends Fragment {
                                 dialogInterface.dismiss();
                                 startActivity(intent);
                                 view.getContext().startActivity(intent);
-
                             })
                             .setNegativeButton("TIDAK", null)
                             .show();

@@ -21,6 +21,7 @@
             android:visibility="gone"
             android:backgroundTint="@color/background"
             android:contentDescription="@string/button"
+            app:borderWidth="0dp"
             android:src="@drawable/ic_baseline_edit_24"
             app:layout_constraintEnd_toStartOf="@+id/deleteBtn"
             app:layout_constraintTop_toTopOf="parent"
@@ -33,6 +34,7 @@
             android:contentDescription="@string/button"
             android:backgroundTint="@android:color/holo_red_dark"
             app:tint="@color/white"
+            app:borderWidth="0dp"
             android:visibility="gone"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
@@ -65,73 +67,69 @@
             app:tint="@color/white" />
 
 
-        <TextView
-            android:id="@+id/title"
+        <LinearLayout
+            android:id="@+id/linearLayout2"
             android:layout_width="match_parent"
-            android:layout_marginEnd="16dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:text="Title"
-            android:elevation="3dp"
-            android:textColor="@color/white"
-            android:layout_marginTop="16dp"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/view10" />
+            android:background="@color/background"
+            android:orientation="vertical"
+            app:layout_constraintTop_toBottomOf="@+id/imageView13"
+            tools:layout_editor_absoluteX="36dp">
 
+
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:elevation="3dp"
+                android:text="Title"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/dateAdded"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:elevation="3dp"
+                android:text="Diunggah pada: "
+                android:textColor="@color/white"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/dateUpdated"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="16dp"
+                android:elevation="3dp"
+                android:text="Diperbarui pada: "
+                android:textColor="@color/white"
+                android:textStyle="bold" />
+
+
+        </LinearLayout>
 
         <TextView
             android:id="@+id/description"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="30sp"
+            android:text="Description"
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
-            android:layout_marginTop="16dp"
-            android:text="Description"
             android:textColor="@color/black"
-            android:layout_marginBottom="30sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/view10" />
-
-
-        <TextView
-            android:id="@+id/dateAdded"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:elevation="3dp"
-            android:layout_marginTop="16dp"
-            android:text="Diunggah pada: "
-            android:textColor="@color/white"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="@+id/view10"
-            app:layout_constraintTop_toBottomOf="@+id/title" />
-
-        <TextView
-            android:id="@+id/dateUpdated"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:elevation="3dp"
-            android:text="Diperbarui pada: "
-            android:textColor="@color/white"
-            android:layout_marginTop="5dp"
-            android:layout_marginStart="16dp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="@+id/view10"
-            app:layout_constraintTop_toBottomOf="@+id/dateAdded" />
-
-        <View
-            android:id="@+id/view10"
-            android:layout_width="match_parent"
-            android:layout_height="120dp"
-            android:background="@color/background"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageView13" />
-
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
