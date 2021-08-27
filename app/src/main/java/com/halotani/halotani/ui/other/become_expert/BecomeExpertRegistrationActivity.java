@@ -99,7 +99,6 @@ public class BecomeExpertRegistrationActivity extends AppCompatActivity {
         ImagePicker.with(BecomeExpertRegistrationActivity.this)
                 .galleryOnly()
                 .compress(1024)
-                .maxResultSize(1080, 1080)
                 .start(REQUEST_FROM_CAMERA_TO_FORMAL_PICTURE);
     }
 
@@ -138,12 +137,12 @@ public class BecomeExpertRegistrationActivity extends AppCompatActivity {
         Map<String, Object> expert = new HashMap<>();
         expert.put("name", name);
         expert.put("description", desc);
-        expert.put("sertifikatKeahlian", sertifikatKeahlian);
+        expert.put("keahlian", sertifikatKeahlian);
         expert.put("experience", pengalaman);
         expert.put("phone", phone);
         expert.put("dp", userDp);
         expert.put("like", "0");
-        expert.put("practice", certificate);
+        expert.put("certificate", certificate);
         expert.put("uid", uid);
         expert.put("role", "waiting");
 
@@ -212,10 +211,12 @@ public class BecomeExpertRegistrationActivity extends AppCompatActivity {
                                     switch (practice) {
                                         case "formal": {
                                             userDp = uri.toString();
+                                            Log.e("UserDp", uri.toString());
                                             break;
                                         }
                                         case "certificate": {
                                             certificate = uri.toString();
+                                            Log.e("UserDp", uri.toString());
                                             break;
                                         }
                                     }

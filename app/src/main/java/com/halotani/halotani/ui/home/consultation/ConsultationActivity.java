@@ -24,18 +24,16 @@ public class ConsultationActivity extends AppCompatActivity {
         binding.consultWithDoctor.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                checkUserLogin();
+                startActivity(new Intent(ConsultationActivity.this, ConsultationFindActivity.class));
             }
         });
-    }
 
-    private void checkUserLogin() {
-        if(FirebaseAuth.getInstance().getCurrentUser() != null) {
-            startActivity(new Intent(ConsultationActivity.this, ConsultationFindActivity.class));
-        }
-        else {
-            startActivity(new Intent(ConsultationActivity.this, LoginActivity.class));
-        }
+        binding.backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
     }
 
     @Override

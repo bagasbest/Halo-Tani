@@ -65,7 +65,7 @@ public class ArticleActivity extends AppCompatActivity {
         // tampilkan daftar artikel di halaman artikel terkait pertanian
         ArticleViewModel viewModel = new ViewModelProvider(this).get(ArticleViewModel.class);
 
-
+        binding.progressBar.setVisibility(View.VISIBLE);
         viewModel.setArticleList();
         viewModel.getArticleList().observe(this, article -> {
             if (article.size() > 0) {

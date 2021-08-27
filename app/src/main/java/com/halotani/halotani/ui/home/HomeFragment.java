@@ -25,6 +25,7 @@ import com.halotani.halotani.databinding.FragmentHomeBinding;
 import com.halotani.halotani.ui.home.article.ArticleActivity;
 import com.halotani.halotani.ui.home.article.ArticleAdapter;
 import com.halotani.halotani.ui.home.article.ArticleViewModel;
+import com.halotani.halotani.ui.home.consultation.ConsultationActivity;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -66,7 +67,7 @@ public class HomeFragment extends Fragment {
         binding.view2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                startActivity(new Intent(getActivity(), ConsultationActivity.class));
             }
         });
     }
@@ -102,7 +103,7 @@ public class HomeFragment extends Fragment {
         // tampilkan daftar artikel pilihan
         ArticleViewModel viewModel = new ViewModelProvider(this).get(ArticleViewModel.class);
 
-
+        binding.progressBar.setVisibility(View.VISIBLE);
         viewModel.setFavoriteArticle(true);
         viewModel.getArticleList().observe(this, article -> {
             if (article.size() > 0) {

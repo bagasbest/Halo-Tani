@@ -81,6 +81,7 @@ public class RegisterActivity extends AppCompatActivity {
                         register.put("password", password);
                         register.put("uid", uid);
                         register.put("role", "user");
+                        register.put("dp", "");
 
                         FirebaseFirestore
                                 .getInstance()

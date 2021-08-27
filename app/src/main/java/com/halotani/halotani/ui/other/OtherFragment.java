@@ -13,10 +13,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.halotani.halotani.LoginActivity;
 import com.halotani.halotani.R;
 import com.halotani.halotani.databinding.FragmentOtherBinding;
+import com.halotani.halotani.ui.other.become_expert.BecomeExpertRegistrationActivity;
+import com.halotani.halotani.ui.other.verify.VerifyActivity;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -24,20 +30,43 @@ import org.jetbrains.annotations.NotNull;
 public class OtherFragment extends Fragment {
 
     private FragmentOtherBinding binding;
+    private FirebaseUser user;
 
     @Override
     public View onCreateView(@NotNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         binding = FragmentOtherBinding.inflate(inflater, container, false);
-
+        user = FirebaseAuth.getInstance().getCurrentUser();
         // cek apakah user sudah login atau belum
         checkUserLogin();
+
+        // cek admin atau bukan untuk memunculkan menu verifikasi
+        checkAdminOrNot();
 
         // klik login / logout
         clickLoginOrLogout();
 
         return binding.getRoot();
+    }
+
+    private void checkAdminOrNot() {
+        if(user != null) {
+            FirebaseFirestore
+                    .getInstance()
+                    .collection("users")
+                    .document(user.getUid())
+                    .get()
+                    .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                        @Override
+                        public void onSuccess(DocumentSnapshot documentSnapshot) {
+                            if(("" + documentSnapshot.get("role")).equals("admin")) {
+                                binding.verifyConsultant.setVisibility(View.VISIBLE);
+                            }
+                        }
+                    });
+        }
+
     }
 
     @Override
@@ -47,14 +76,51 @@ public class OtherFragment extends Fragment {
         binding.becomeExpert.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if(user != null) {
+                    FirebaseFirestore
+                            .getInstance()
+                            .collection("expert")
+                            .document(user.getUid())
+                            .get()
+                            .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                                @Override
+                                public void onSuccess(DocumentSnapshot documentSnapshot) {
+                                    if(!documentSnapshot.exists()) {
+                                        startActivity(new Intent(getActivity(), BecomeExpertRegistrationActivity.class));
+                                    } else {
+                                        showAlertDialog();
+                                    }
+                                }
+                            });
+                } else {
+                    startActivity(new Intent(getActivity(), LoginActivity.class));
+                }
 
+            }
+        });
+
+        binding.verifyConsultant.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getActivity(), VerifyActivity.class));
             }
         });
 
     }
 
+    private void showAlertDialog() {
+        new AlertDialog.Builder(getActivity())
+                .setTitle("Anda Sudah Terdaftar")
+                .setMessage("Pendaftaran Menjadi Penyuluh Pertanian hanya bisa di lakukan satu kali, jika pendaftaran anda belum dikonfirmasi, harap menunggu, admin akan segera memeriksanya.")
+                .setIcon(R.drawable.ic_baseline_warning_24)
+                .setPositiveButton("OKE", (dialogInterface, i) -> {
+                    dialogInterface.dismiss();
+                })
+                .show();
+    }
+
     private void clickLoginOrLogout() {
-        if(FirebaseAuth.getInstance().getCurrentUser() != null) {
+        if(user != null) {
             binding.authBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -91,7 +157,7 @@ public class OtherFragment extends Fragment {
 
     @SuppressLint("SetTextI18n")
     private void checkUserLogin() {
-        if(FirebaseAuth.getInstance().getCurrentUser() != null) {
+        if(user != null) {
             binding.authBtn.setText("Logout");
         } else {
             binding.authBtn.setText("Login");
