@@ -38,10 +38,8 @@ public class ConsultationViewModel extends ViewModel {
                                 model.setDp("" + document.get("dp"));
                                 model.setKeahlian("" + document.get("keahlian"));
                                 model.setLike("" + document.get("like"));
-                                model.setExperience("" + document.get("experience"));
                                 model.setUid("" + document.get("uid"));
                                 model.setRole("" + document.get("role"));
-                                model.setCertificate("" + document.get("certificate"));
                                 model.setPhone("" + document.get("phone"));
 
                                 expertArrayList.add(model);
@@ -75,10 +73,8 @@ public class ConsultationViewModel extends ViewModel {
                                 model.setDp("" + document.get("dp"));
                                 model.setKeahlian("" + document.get("keahlian"));
                                 model.setLike("" + document.get("like"));
-                                model.setExperience("" + document.get("experience"));
                                 model.setUid("" + document.get("uid"));
                                 model.setRole("" + document.get("role"));
-                                model.setCertificate("" + document.get("certificate"));
                                 model.setPhone("" + document.get("phone"));
 
                                 expertArrayList.add(model);

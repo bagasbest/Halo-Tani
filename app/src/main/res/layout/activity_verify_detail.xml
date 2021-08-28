@@ -86,20 +86,6 @@
 
 
         <TextView
-            android:id="@+id/pengalaman"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            android:text="Pengalaman: 6 Tahun"
-            android:textColor="@color/black"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/dp"
-            app:layout_constraintTop_toBottomOf="@+id/sertifikatKeahlian" />
-
-
-        <TextView
             android:id="@+id/phone"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -110,7 +96,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.007"
             app:layout_constraintStart_toEndOf="@+id/dp"
-            app:layout_constraintTop_toBottomOf="@+id/pengalaman" />
+            app:layout_constraintTop_toBottomOf="@+id/sertifikatKeahlian" />
 
         <TextView
             android:id="@+id/description"
@@ -126,22 +112,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/dp" />
 
-
-
-        <com.makeramen.roundedimageview.RoundedImageView
-            android:id="@+id/specialist"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            android:elevation="10dp"
-            android:layout_marginTop="16dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/description"
-            app:riv_corner_radius="10dp" />
-
         <Button
             android:id="@+id/verifBtn"
             android:layout_width="150dp"
@@ -153,7 +123,7 @@
             android:layout_marginEnd="16dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/specialist" />
+            app:layout_constraintTop_toBottomOf="@+id/description" />
 
         <Button
             android:id="@+id/reject"
@@ -166,7 +136,7 @@
             android:textAllCaps="false"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/specialist" />
+            app:layout_constraintTop_toBottomOf="@+id/description" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

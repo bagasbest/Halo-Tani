@@ -4,28 +4,80 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
-
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
-
+import androidx.recyclerview.widget.LinearLayoutManager;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.halotani.halotani.databinding.FragmentHistoryBinding;
 
 
 public class HistoryFragment extends Fragment {
 
     private FragmentHistoryBinding binding;
+    private HistoryAdapter adapter;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
         binding = FragmentHistoryBinding.inflate(inflater, container, false);
 
+        initRecyclerView();
+        initViewModel();
 
         return binding.getRoot();
+    }
+
+    private void initRecyclerView() {
+        binding.rvHistory.setLayoutManager(new LinearLayoutManager(getActivity()));
+        adapter = new HistoryAdapter();
+        binding.rvHistory.setAdapter(adapter);
+    }
+
+    private void initViewModel() {
+        // tampilkan riwayat transaksi
+        HistoryViewModel viewModel = new ViewModelProvider(this).get(HistoryViewModel.class);
+
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+        if(user != null) {
+            binding.progressBar.setVisibility(View.VISIBLE);
+            // cek apakah user yang login merupakan customer atau ahli
+            FirebaseFirestore
+                    .getInstance()
+                    .collection("expert")
+                    .document(user.getUid())
+                    .get()
+                    .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                        @Override
+                        public void onSuccess(DocumentSnapshot documentSnapshot) {
+                            if(("" + documentSnapshot.get("role")).equals("expert")) {
+                                viewModel.setExpertUid(user.getUid());
+                            } else {
+                                viewModel.setHistoryCustomer(user.getUid());
+                            }
+                            viewModel.getHistory().observe(getViewLifecycleOwner(), historyModels -> {
+                                if (historyModels.size() > 0) {
+                                    binding.noData.setVisibility(View.GONE);
+                                    adapter.setData(historyModels);
+                                } else {
+                                    binding.noData.setVisibility(View.VISIBLE);
+                                }
+                                binding.progressBar.setVisibility(View.GONE);
+                            });
+                        }
+                    });
+        } else {
+            binding.rvHistory.setVisibility(View.GONE);
+            binding.noData.setVisibility(View.GONE);
+            binding.notLogin.setVisibility(View.VISIBLE);
+        }
+
+
     }
 
     @Override

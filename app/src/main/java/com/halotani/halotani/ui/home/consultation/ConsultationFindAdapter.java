@@ -51,7 +51,7 @@ public class ConsultationFindAdapter extends RecyclerView.Adapter<ConsultationFi
 
         CardView cv;
         ImageView dp;
-        TextView name, keahlian, experience, like;
+        TextView name, keahlian, like;
 
 
         public ViewHolder(@NonNull @NotNull View itemView) {
@@ -60,7 +60,6 @@ public class ConsultationFindAdapter extends RecyclerView.Adapter<ConsultationFi
             dp = itemView.findViewById(R.id.dp);
             name = itemView.findViewById(R.id.name);
             keahlian = itemView.findViewById(R.id.sertifikatKeahlian);
-            experience = itemView.findViewById(R.id.pengalaman);
             like = itemView.findViewById(R.id.like);
         }
 
@@ -75,7 +74,6 @@ public class ConsultationFindAdapter extends RecyclerView.Adapter<ConsultationFi
             like.setText(model.getLike() + " Orang merekomendasikan dia");
             name.setText(model.getName());
             keahlian.setText(model.getKeahlian());
-            experience.setText("Bekerja selama " + model.getExperience() + " Tahun");
 
             cv.setOnClickListener(new View.OnClickListener() {
                 @Override

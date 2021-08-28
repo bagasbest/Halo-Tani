@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Toast;
+
 import com.github.dhaval2404.imagepicker.ImagePicker;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -20,6 +21,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.halotani.halotani.R;
 import com.halotani.halotani.databinding.ActivityBecomeExpertRegistrationBinding;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -28,10 +30,8 @@ public class BecomeExpertRegistrationActivity extends AppCompatActivity {
     private ActivityBecomeExpertRegistrationBinding binding;
 
     private static final int REQUEST_FROM_CAMERA_TO_FORMAL_PICTURE = 1001;
-    private static final int REQUEST_FROM_CAMERA_TO_IJAZAH_KELULUSAN = 1002;
 
     private String userDp;
-    private String certificate;
     private String sertifikatKeahlian;
 
     @Override
@@ -64,15 +64,6 @@ public class BecomeExpertRegistrationActivity extends AppCompatActivity {
             }
         });
 
-        // klik unggah ijazah kelulusan
-        binding.ijazah.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                clickUploadCertificate();
-            }
-        });
-
-
         // PILIH SERTIFIKAT KEAHLIAN
         //tampilkan kecamatan
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
@@ -88,13 +79,6 @@ public class BecomeExpertRegistrationActivity extends AppCompatActivity {
 
     }
 
-    private void clickUploadCertificate() {
-        ImagePicker.with(BecomeExpertRegistrationActivity.this)
-                .cameraOnly()
-                .compress(1024)
-                .start(REQUEST_FROM_CAMERA_TO_IJAZAH_KELULUSAN);
-    }
-
     private void clickUploadFormalPic() {
         ImagePicker.with(BecomeExpertRegistrationActivity.this)
                 .galleryOnly()
@@ -106,7 +90,6 @@ public class BecomeExpertRegistrationActivity extends AppCompatActivity {
         String name = binding.name.getText().toString().trim();
         String desc = binding.description.getText().toString();
         String phone = binding.phone.getText().toString().trim();
-        String pengalaman = binding.pengalaman.getText().toString().trim();
         sertifikatKeahlian = binding.sertifikatKeahlian.getText().toString();
 
 
@@ -125,9 +108,6 @@ public class BecomeExpertRegistrationActivity extends AppCompatActivity {
         } else if (userDp == null) {
             Toast.makeText(BecomeExpertRegistrationActivity.this, "Silahkan unggah foto formal", Toast.LENGTH_SHORT).show();
             return;
-        } else if (certificate == null) {
-            Toast.makeText(BecomeExpertRegistrationActivity.this, "Silahkan unggah sertifikat praktik anda", Toast.LENGTH_SHORT).show();
-            return;
         }
 
 
@@ -138,11 +118,9 @@ public class BecomeExpertRegistrationActivity extends AppCompatActivity {
         expert.put("name", name);
         expert.put("description", desc);
         expert.put("keahlian", sertifikatKeahlian);
-        expert.put("experience", pengalaman);
         expert.put("phone", phone);
         expert.put("dp", userDp);
         expert.put("like", "0");
-        expert.put("certificate", certificate);
         expert.put("uid", uid);
         expert.put("role", "waiting");
 
@@ -181,45 +159,27 @@ public class BecomeExpertRegistrationActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == Activity.RESULT_OK) {
-            switch (requestCode) {
-                case REQUEST_FROM_CAMERA_TO_FORMAL_PICTURE: {
-                    uploadPicture(data.getData(), "formal");
-                    break;
-                }
-                case REQUEST_FROM_CAMERA_TO_IJAZAH_KELULUSAN: {
-                    uploadPicture(data.getData(), "certificate");
-                    break;
-                }
+            if (requestCode == REQUEST_FROM_CAMERA_TO_FORMAL_PICTURE) {
+                uploadPicture(data.getData());
             }
         }
     }
 
-    private void uploadPicture(Uri data, String practice) {
+    private void uploadPicture(Uri data) {
         StorageReference mStorageRef = FirebaseStorage.getInstance().getReference();
         ProgressDialog mProgressDialog = new ProgressDialog(this);
 
         mProgressDialog.setMessage("Mohon tunggu hingga proses selesai...");
         mProgressDialog.setCanceledOnTouchOutside(false);
         mProgressDialog.show();
-        String imageFileName = "expert/" + practice + "/data_" + System.currentTimeMillis() + ".png";
+        String imageFileName = "expert/" + "formal" + "/data_" + System.currentTimeMillis() + ".png";
 
         mStorageRef.child(imageFileName).putFile(data)
                 .addOnSuccessListener(taskSnapshot ->
                         mStorageRef.child(imageFileName).getDownloadUrl()
                                 .addOnSuccessListener(uri -> {
                                     mProgressDialog.dismiss();
-                                    switch (practice) {
-                                        case "formal": {
-                                            userDp = uri.toString();
-                                            Log.e("UserDp", uri.toString());
-                                            break;
-                                        }
-                                        case "certificate": {
-                                            certificate = uri.toString();
-                                            Log.e("UserDp", uri.toString());
-                                            break;
-                                        }
-                                    }
+                                    userDp = uri.toString();
                                     Toast.makeText(BecomeExpertRegistrationActivity.this, "Berhasil mengunggah gambar", Toast.LENGTH_SHORT).show();
                                 })
                                 .addOnFailureListener(e -> {

@@ -51,7 +51,7 @@ public class VerifyAdapter extends RecyclerView.Adapter<VerifyAdapter.ViewHolder
 
         CardView cv;
         ImageView dp, thumb;
-        TextView name, keahlian, experience, like;
+        TextView name, keahlian, like;
 
 
         public ViewHolder(@NonNull @NotNull View itemView) {
@@ -60,7 +60,6 @@ public class VerifyAdapter extends RecyclerView.Adapter<VerifyAdapter.ViewHolder
             dp = itemView.findViewById(R.id.dp);
             name = itemView.findViewById(R.id.name);
             keahlian = itemView.findViewById(R.id.sertifikatKeahlian);
-            experience = itemView.findViewById(R.id.pengalaman);
             like = itemView.findViewById(R.id.like);
             thumb = itemView.findViewById(R.id.thumb);
         }
@@ -77,7 +76,6 @@ public class VerifyAdapter extends RecyclerView.Adapter<VerifyAdapter.ViewHolder
 
             name.setText(model.getName());
             keahlian.setText(model.getKeahlian());
-            experience.setText("Bekerja selama " + model.getExperience() + " Tahun");
 
             cv.setOnClickListener(new View.OnClickListener() {
                 @Override

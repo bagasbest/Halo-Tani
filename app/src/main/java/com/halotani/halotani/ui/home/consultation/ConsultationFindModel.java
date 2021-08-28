@@ -8,11 +8,9 @@ public class ConsultationFindModel implements Parcelable {
     private String name;
     private String description;
     private String keahlian;
-    private String experience;
     private String phone;
     private String dp;
     private String like;
-    private String certificate;
     private String uid;
     private String role;
 
@@ -22,11 +20,9 @@ public class ConsultationFindModel implements Parcelable {
         name = in.readString();
         description = in.readString();
         keahlian = in.readString();
-        experience = in.readString();
         phone = in.readString();
         dp = in.readString();
         like = in.readString();
-        certificate = in.readString();
         uid = in.readString();
         role = in.readString();
     }
@@ -67,14 +63,6 @@ public class ConsultationFindModel implements Parcelable {
         this.keahlian = keahlian;
     }
 
-    public String getExperience() {
-        return experience;
-    }
-
-    public void setExperience(String experience) {
-        this.experience = experience;
-    }
-
     public String getPhone() {
         return phone;
     }
@@ -97,14 +85,6 @@ public class ConsultationFindModel implements Parcelable {
 
     public void setLike(String like) {
         this.like = like;
-    }
-
-    public String getCertificate() {
-        return certificate;
-    }
-
-    public void setCertificate(String certificate) {
-        this.certificate = certificate;
     }
 
     public String getUid() {
@@ -133,11 +113,9 @@ public class ConsultationFindModel implements Parcelable {
         parcel.writeString(name);
         parcel.writeString(description);
         parcel.writeString(keahlian);
-        parcel.writeString(experience);
         parcel.writeString(phone);
         parcel.writeString(dp);
         parcel.writeString(like);
-        parcel.writeString(certificate);
         parcel.writeString(uid);
         parcel.writeString(role);
     }

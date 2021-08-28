@@ -50,16 +50,11 @@ public class ConsultationDetailActivity extends AppCompatActivity {
 
         binding.name.setText(model.getName());
         binding.sertifikatKeahlian.setText(model.getKeahlian());
-        binding.pengalaman.setText("Telah bekerja selama: " + model.getExperience()  +" tahun");
         binding.like.setText(model.getLike() + " Orang telah merekomendasikan " + model.getName());
         binding.description.setText(model.getDescription());
         Glide.with(this)
                 .load(model.getDp())
                 .into(binding.dp);
-
-        Glide.with(this)
-                .load(model.getCertificate())
-                .into(binding.specialist);
 
         // KLIK KONSULTASI
         binding.paymentBtn.setOnClickListener(new View.OnClickListener() {
@@ -163,7 +158,8 @@ public class ConsultationDetailActivity extends AppCompatActivity {
                         consultation.put("customerUid", customerUid);
                         consultation.put("customerName", ""+documentSnapshot.get("name"));
                         consultation.put("doctorDp", model.getDp());
-                        consultation.put("status", "active");
+                        consultation.put("status", "Sedang Konsultasi");
+                        consultation.put("keahlian", model.getKeahlian());
                         consultation.put("customerDp", ""+documentSnapshot.get("dp"));
                         consultation.put("online", false);
 

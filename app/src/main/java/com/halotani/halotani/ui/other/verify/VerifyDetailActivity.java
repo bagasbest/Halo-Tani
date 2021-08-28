@@ -14,7 +14,6 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.halotani.halotani.R;
-import com.halotani.halotani.databinding.ActivityVerifyBinding;
 import com.halotani.halotani.databinding.ActivityVerifyDetailBinding;
 import com.halotani.halotani.ui.home.consultation.ConsultationFindModel;
 
@@ -38,13 +37,8 @@ public class VerifyDetailActivity extends AppCompatActivity {
                 .load(model.getDp())
                 .into(binding.dp);
 
-        Glide.with(this)
-                .load(model.getCertificate())
-                .into(binding.specialist);
-
         binding.name.setText("Nama: " + model.getName());
         binding.sertifikatKeahlian.setText("Keahlian: " + model.getKeahlian());
-        binding.pengalaman.setText("Pengalaman: " + model.getExperience() + " Tahun");
         binding.phone.setText("Telepon: " + model.getPhone());
 
         // kembali ke halaman sebelumnya

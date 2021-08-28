@@ -68,7 +68,6 @@ public class ConsultationFindActivity extends AppCompatActivity {
         }
 
         viewModel.getExpertList().observe(this, expert -> {
-            Log.e("TAG", expert.toString());
             if (expert.size() > 0) {
                 binding.noData.setVisibility(View.GONE);
                 adapter.setData(expert);

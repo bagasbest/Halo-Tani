@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="160dp"
+    android:layout_height="150dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:cardCornerRadius="10dp"
     android:elevation="10dp"
@@ -13,7 +13,7 @@
     <com.makeramen.roundedimageview.RoundedImageView
         android:id="@+id/dp"
         android:layout_width="100dp"
-        android:layout_height="125dp"
+        android:layout_height="110dp"
         android:elevation="10dp"
         android:scaleType="centerCrop"
         android:layout_margin="16dp"
@@ -40,38 +40,19 @@
         android:layout_marginStart="130dp"
         android:layout_marginTop="45dp" />
 
-    <ImageView
-        android:id="@+id/thumb"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_baseline_thumb_up_24"
-        android:layout_marginStart="130dp"
-        app:tint="@color/background"
-        android:layout_marginTop="80dp"
-        android:contentDescription="@string/image" />
-
-    <TextView
-        android:id="@+id/like"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="99 Orang merekomendasikan dia"
-        android:textSize="11sp"
-        android:textColor="@color/black"
-        android:layout_marginTop="85dp"
-        android:layout_marginStart="160dp" />
-
 
     <RelativeLayout
         android:id="@+id/rl"
         android:layout_width="match_parent"
         android:layout_height="25dp"
         android:layout_marginStart="130dp"
-        android:layout_marginTop="120dp"
+        android:layout_marginTop="100dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp">
 
         <View
-            android:layout_width="100dp"
+            android:id="@+id/bg"
+            android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:background="@drawable/rounded_bg"
             android:layout_alignParentEnd="true" />
@@ -79,9 +60,10 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Konsultasi"
+            android:text="Sedang Konsultasi"
             android:textColor="@color/white"
             android:textStyle="bold"
+            android:id="@+id/status"
             android:layout_marginTop="3dp"
             android:layout_alignParentEnd="true"
             android:layout_marginEnd="16dp" />

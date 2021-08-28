@@ -14,7 +14,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.HaloTani">
-        <activity android:name=".ui.home.consultation.ConsultationDetailActivity"></activity>
+        <activity android:name=".ui.message.chat.ChatActivity"></activity>
+        <activity android:name=".ui.home.consultation.ConsultationDetailActivity" />
         <activity android:name=".ui.other.verify.VerifyDetailActivity" />
         <activity android:name=".ui.other.verify.VerifyActivity" />
         <activity android:name=".ui.other.become_expert.BecomeExpertRegistrationActivity" />
