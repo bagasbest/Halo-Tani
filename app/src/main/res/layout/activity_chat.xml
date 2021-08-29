@@ -54,8 +54,8 @@
 
     <ImageButton
         android:id="@+id/attach"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:backgroundTint="@color/background"
         android:contentDescription="@string/button"
         android:layout_marginBottom="5dp"
@@ -66,8 +66,8 @@
 
     <ImageButton
         android:id="@+id/send"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:layout_marginEnd="5dp"
         android:layout_marginBottom="5dp"
         android:backgroundTint="@color/background"

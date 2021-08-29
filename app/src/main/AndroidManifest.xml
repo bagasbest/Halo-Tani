@@ -14,7 +14,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.HaloTani">
-        <activity android:name=".ui.message.chat.ChatActivity"></activity>
+        <activity android:name=".ui.message.chat.ChatNoteActivity"></activity>
+        <activity android:name=".utils.UnderConstructionActivity" />
+        <activity android:name=".ui.other.HelpActivity" />
+        <activity android:name=".ui.other.SavedLocationActivity" />
+        <activity android:name=".ui.message.chat.ChatActivity" />
         <activity android:name=".ui.home.consultation.ConsultationDetailActivity" />
         <activity android:name=".ui.other.verify.VerifyDetailActivity" />
         <activity android:name=".ui.other.verify.VerifyActivity" />
