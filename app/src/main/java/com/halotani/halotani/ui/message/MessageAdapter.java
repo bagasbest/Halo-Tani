@@ -98,11 +98,9 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
             }
 
             cv.setOnClickListener(view -> {
-                if(model.getStatus().equals("Sedang Konsultasi")) {
                     Intent intent = new Intent(itemView.getContext(), ChatActivity.class);
                     intent.putExtra(ChatActivity.EXTRA_CONSULTATION, model);
                     itemView.getContext().startActivity(intent);
-                }
             });
 
 

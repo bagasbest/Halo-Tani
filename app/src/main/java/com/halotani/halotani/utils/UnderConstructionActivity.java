@@ -16,7 +16,7 @@ public class UnderConstructionActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityUnderConstructionBinding.inflate(getLayoutInflater());
-        setContentView(R.layout.activity_under_construction);
+        setContentView(binding.getRoot());
 
         binding.backButton.setOnClickListener(new View.OnClickListener() {
             @Override
