@@ -80,7 +80,7 @@ public class ChatActivity extends AppCompatActivity {
 
         // KLIK BERKAS
         binding.attach.setOnClickListener(view -> {
-            //showOptionDialog();
+            showOptionDialog();
         });
 
         // CEK APAKAH KONSULTASI SUDAH SELESAI / BELUM
