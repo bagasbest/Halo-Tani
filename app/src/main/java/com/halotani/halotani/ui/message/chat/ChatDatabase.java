@@ -9,14 +9,14 @@ import java.util.Map;
 
 public class ChatDatabase {
 
-    public static void sendChat(String message, String format, String uid, String myUid) {
+    public static void sendChat(String message, String format, String uid, String myUid, boolean isText) {
 
 
         Map<String, Object> logChat   = new HashMap<>();
         logChat.put("message", message);
         logChat.put("time", format);
         logChat.put("uid", myUid);
-        logChat.put("isText", false);
+        logChat.put("isText", isText);
 
         // UPDATE LOG CHAT TERAKHIR (SISI PENGIRIM)
         FirebaseFirestore

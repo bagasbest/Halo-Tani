@@ -14,10 +14,13 @@
     <string name="button">button</string>
 
     <string-array name="specialist">
-        <item>Ahli Hama dan Penyekit Tumbuhan</item>
+        <item>Ahli Hama dan Penyakit Tumbuhan</item>
         <item>Ahli Budidaya Tanaman</item>
         <item>Ahli Peternakan</item>
         <item>Ahli Agribisnis</item>
         <item>Ahli Teknologi Hasil Pertanian</item>
+        <item>Ahli Kehutanan</item>
+        <item>Ahli Tanah</item>
+        <item>Ahli Pemuliaan Tanaman</item>
     </string-array>
 </resources>

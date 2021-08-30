@@ -21,7 +21,8 @@
 
     <TextView
         android:id="@+id/name"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_marginEnd="16dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="130dp"
         android:layout_marginTop="20sp"
@@ -31,14 +32,33 @@
 
     <TextView
         android:id="@+id/sertifikatKeahlian"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_marginEnd="16dp"
         android:layout_height="wrap_content"
+        android:maxLines="1"
         android:text="Keahlian"
         android:textStyle="bold"
         android:textSize="11sp"
         android:textColor="@color/black"
         android:layout_marginStart="130dp"
         android:layout_marginTop="45dp" />
+
+    <View
+        android:layout_width="20dp"
+        android:id="@+id/onlineIndicator"
+        android:layout_height="20dp"
+        android:layout_marginStart="130dp"
+        android:layout_marginTop="75dp"
+        android:background="@drawable/rounded_bg" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/onlineText"
+        android:textColor="@color/black"
+        android:layout_marginStart="160dp"
+        android:layout_marginTop="75dp"
+        android:text="Online" />
 
 
     <RelativeLayout

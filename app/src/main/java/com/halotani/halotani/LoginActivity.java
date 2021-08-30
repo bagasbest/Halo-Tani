@@ -59,8 +59,12 @@ public class LoginActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull @NotNull Task<AuthResult> task) {
                         if(task.isSuccessful()) {
-                            binding.progressBar2.setVisibility(View.GONE);
-                            startActivity(new Intent (LoginActivity.this, HomeActivity.class));
+                            if(FirebaseAuth.getInstance().getCurrentUser().isEmailVerified()) {
+                                binding.progressBar2.setVisibility(View.GONE);
+                                startActivity(new Intent (LoginActivity.this, HomeActivity.class));
+                            } else {
+                                showVerifiedDialog();
+                            }
                         }
                         else {
                             binding.progressBar2.setVisibility(View.GONE);
@@ -69,6 +73,20 @@ public class LoginActivity extends AppCompatActivity {
                     }
                 });
 
+    }
+
+    private void showVerifiedDialog() {
+        new AlertDialog.Builder(this)
+                .setTitle("Verifikasi Akun")
+                .setMessage("Email verifikasi telah di kirimkan ke akun email anda, silahkan verifikasi akun anda secepatnya")
+                .setIcon(R.drawable.ic_baseline_warning_24)
+                .setCancelable(false)
+                .setPositiveButton("OKE", (dialogInterface, i) -> {
+                    dialogInterface.dismiss();
+                    //send verified email
+                    FirebaseAuth.getInstance().getCurrentUser().sendEmailVerification();
+                })
+                .show();
     }
 
     private void showFailureDialog() {

@@ -14,7 +14,8 @@ public class MessageModel implements Parcelable {
     private String status;
     private String keahlian;
     private String customerDp;
-    private boolean online;
+    private boolean onlineCustomer;
+    private boolean onlineDoctor;
 
     public MessageModel(){}
 
@@ -28,7 +29,8 @@ public class MessageModel implements Parcelable {
         status = in.readString();
         keahlian = in.readString();
         customerDp = in.readString();
-        online = in.readByte() != 0;
+        onlineCustomer = in.readByte() != 0;
+        onlineDoctor = in.readByte() != 0;
     }
 
     public static final Creator<MessageModel> CREATOR = new Creator<MessageModel>() {
@@ -115,12 +117,20 @@ public class MessageModel implements Parcelable {
         this.customerDp = customerDp;
     }
 
-    public boolean isOnline() {
-        return online;
+    public boolean isOnlineCustomer() {
+        return onlineCustomer;
     }
 
-    public void setOnline(boolean online) {
-        this.online = online;
+    public void setOnlineCustomer(boolean onlineCustomer) {
+        this.onlineCustomer = onlineCustomer;
+    }
+
+    public boolean isOnlineDoctor() {
+        return onlineDoctor;
+    }
+
+    public void setOnlineDoctor(boolean onlineDoctor) {
+        this.onlineDoctor = onlineDoctor;
     }
 
     @Override
@@ -139,6 +149,7 @@ public class MessageModel implements Parcelable {
         parcel.writeString(status);
         parcel.writeString(keahlian);
         parcel.writeString(customerDp);
-        parcel.writeByte((byte) (online ? 1 : 0));
+        parcel.writeByte((byte) (onlineCustomer ? 1 : 0));
+        parcel.writeByte((byte) (onlineDoctor ? 1 : 0));
     }
 }

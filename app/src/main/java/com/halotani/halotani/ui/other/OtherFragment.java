@@ -18,13 +18,11 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.rpc.Help;
 import com.halotani.halotani.LoginActivity;
 import com.halotani.halotani.R;
 import com.halotani.halotani.databinding.FragmentOtherBinding;
 import com.halotani.halotani.ui.other.become_expert.BecomeExpertRegistrationActivity;
 import com.halotani.halotani.ui.other.verify.VerifyActivity;
-import com.halotani.halotani.utils.UnderConstructionActivity;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -53,7 +51,11 @@ public class OtherFragment extends Fragment {
         binding.imageView8.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getContext(), SavedLocationActivity.class));
+                if(FirebaseAuth.getInstance().getCurrentUser() != null) {
+                    startActivity(new Intent(getContext(), SavedLocationActivity.class));
+                } else {
+                    startActivity(new Intent(getActivity(), LoginActivity.class));
+                }
             }
         });
 
@@ -62,21 +64,6 @@ public class OtherFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(getContext(), HelpActivity.class));
-            }
-        });
-
-        // paket pertanian
-        binding.imageView5.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(getContext(), UnderConstructionActivity.class));
-            }
-        });
-
-        binding.imageView12.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(getContext(), UnderConstructionActivity.class));
             }
         });
 

@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.halotani.halotani.LoginActivity;
 import com.halotani.halotani.R;
 import com.halotani.halotani.databinding.FragmentMessageBinding;
@@ -34,7 +35,15 @@ public class MessageFragment extends Fragment {
         super.onResume();
         user = FirebaseAuth.getInstance().getCurrentUser();
         checkIsUserLoginOrNot();
+        checkStatus("Online");
     }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        checkStatus("Offline");
+    }
+
 
 
     @Override
@@ -59,6 +68,12 @@ public class MessageFragment extends Fragment {
         });
     }
 
+    private void checkStatus(String status) {
+//        FirebaseFirestore
+//                .getInstance()
+//                .collection("consultation")
+//                .whereEqualTo("on")
+    }
 
     private void checkIsUserLoginOrNot() {
         if(user != null) {

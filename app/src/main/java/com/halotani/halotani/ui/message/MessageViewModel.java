@@ -40,7 +40,8 @@ public class MessageViewModel extends ViewModel {
                                 model.setDoctorName("" + document.get("doctorName"));
                                 model.setDoctorUid("" + document.get("doctorUid"));
                                 model.setKeahlian("" + document.get("keahlian"));
-                                model.setOnline(document.getBoolean("online"));
+                                model.setOnlineCustomer(document.getBoolean("onlineCustomer"));
+                                model.setOnlineDoctor(document.getBoolean("onlineDoctor"));
                                 model.setStatus("" + document.get("status"));
                                 model.setUid("" + document.get("uid"));
 
@@ -79,7 +80,8 @@ public class MessageViewModel extends ViewModel {
                                 model.setDoctorName("" + document.get("doctorName"));
                                 model.setDoctorUid("" + document.get("doctorUid"));
                                 model.setKeahlian("" + document.get("keahlian"));
-                                model.setOnline(document.getBoolean("online"));
+                                model.setOnlineCustomer(document.getBoolean("onlineCustomer"));
+                                model.setOnlineDoctor(document.getBoolean("onlineDoctor"));
                                 model.setStatus("" + document.get("status"));
                                 model.setUid("" + document.get("uid"));
 

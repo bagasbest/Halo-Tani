@@ -4,17 +4,27 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
+
 import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
+
 import com.bumptech.glide.Glide;
+import com.github.dhaval2404.imagepicker.ImagePicker;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 import com.halotani.halotani.R;
 import com.halotani.halotani.databinding.ActivityChatBinding;
 import com.halotani.halotani.ui.message.MessageModel;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -24,6 +34,13 @@ public class ChatActivity extends AppCompatActivity {
     private ActivityChatBinding binding;
     private ChatAdapter adapter;
     private MessageModel model;
+
+    private static final int REQUEST_IMAGE_FROM_CAMERA = 1001;
+    private static final int REQUEST_IMAGE_FROM_GALLERY = 1002;
+    private String imageText;
+    String uid;
+    String myUid;
+    String message;
 
     private String currentUid;
 
@@ -36,13 +53,11 @@ public class ChatActivity extends AppCompatActivity {
         currentUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
         model = getIntent().getParcelableExtra(EXTRA_CONSULTATION);
-        String uid;
-        String myUid;
         String name;
         String myName;
         String dp;
         String myDp;
-        if(currentUid.equals(model.getCustomerUid())) {
+        if (currentUid.equals(model.getCustomerUid())) {
             binding.textView23.setText(model.getDoctorName());
 
             uid = model.getDoctorUid();
@@ -53,7 +68,7 @@ public class ChatActivity extends AppCompatActivity {
             myDp = model.getCustomerDp();
 
         } else {
-            binding.textView23.setText(model.getUid());
+            binding.textView23.setText(model.getCustomerName());
 
             uid = model.getCustomerUid();
             myUid = model.getDoctorUid();
@@ -86,37 +101,45 @@ public class ChatActivity extends AppCompatActivity {
         // CEK APAKAH KONSULTASI SUDAH SELESAI / BELUM
         checkConsultationStatus();
 
-        sendMessage(uid, myUid, name, myName, dp, myDp);
-        
+        binding.send.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                sendMessage(uid, myUid);
+            }
+        });
     }
 
     private void checkConsultationStatus() {
-        if(model.getStatus().equals("Selesai")) {
+        if (model.getStatus().equals("Selesai")) {
             binding.send.setEnabled(false);
             binding.messageEt.setEnabled(false);
         }
     }
 
-    private void sendMessage(String uid, String myUid, String name, String myName, String dp, String myDp) {
-        binding.send.setOnClickListener(view -> {
-            String message = binding.messageEt.getText().toString().trim();
-            if(message.isEmpty()){
-                Toast.makeText(ChatActivity.this, "Pesan tidak boleh kosong", Toast.LENGTH_SHORT).show();
-                return;
-            }
+    private void sendMessage(String uid, String myUid) {
+        if (imageText != null) {
+            message = imageText;
+        } else {
+            message = binding.messageEt.getText().toString().trim();
+        }
 
-            @SuppressLint("SimpleDateFormat")
-            SimpleDateFormat getDate = new SimpleDateFormat("dd MMM yyyy, HH:mm:ss");
-            String format = getDate.format(new Date());
 
-            ChatDatabase.sendChat(message, format, uid, myUid);
-            binding.messageEt.getText().clear();
+        if (message.isEmpty()) {
+            Toast.makeText(ChatActivity.this, "Pesan tidak boleh kosong", Toast.LENGTH_SHORT).show();
+            return;
+        }
 
-            // LOAD CHAT HISTORY
-            initRecyclerView();
-            initViewModel();
+        @SuppressLint("SimpleDateFormat")
+        SimpleDateFormat getDate = new SimpleDateFormat("dd MMM yyyy, HH:mm:ss");
+        String format = getDate.format(new Date());
 
-        });
+        ChatDatabase.sendChat(message, format, uid, myUid, imageText != null);
+        binding.messageEt.getText().clear();
+        imageText = null;
+
+        // LOAD CHAT HISTORY
+        initRecyclerView();
+        initViewModel();
     }
 
 
@@ -153,26 +176,38 @@ public class ChatActivity extends AppCompatActivity {
     }
 
     private void showOptionDialog() {
-        String []options = {"Catatan Konsultasi", "Selesaikan Konsultasi"};
+        String[] options = {"Unggah Gambar Melalui Kamera", "Unggah Gambar Melalui Galeri", "Catatan Konsultasi", "Selesaikan Konsultasi"};
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Pilihan");
         builder.setItems(options, (dialog, which) -> {
-            if(which == 0) {
-
+            if (which == 0) {
+                // UNGGAH GAMBAR
+                dialog.dismiss();
+                ImagePicker.with(ChatActivity.this)
+                        .cameraOnly()
+                        .compress(1024)
+                        .start(REQUEST_IMAGE_FROM_CAMERA);
+            } else if (which == 1) {
+                // UNGGAH GAMBAR
+                dialog.dismiss();
+                ImagePicker.with(ChatActivity.this)
+                        .galleryOnly()
+                        .compress(1024)
+                        .start(REQUEST_IMAGE_FROM_GALLERY);
+            } else if (which == 2) {
                 // CATATAN
                 dialog.dismiss();
                 Intent intent = new Intent(ChatActivity.this, ChatNoteActivity.class);
                 intent.putExtra(ChatNoteActivity.EXTRA_NOTE, model);
                 startActivity(intent);
-            }
-            else if(which == 1) {
+            } else if (which == 3) {
 
                 // SELESAIKAN KONSULTASI
                 dialog.dismiss();
-                if(model.getDoctorUid().equals(currentUid)) {
+                if (model.getDoctorUid().equals(currentUid)) {
                     Toast.makeText(ChatActivity.this, "Hanya kustomer yang dapat menyelesaikan konsultasi", Toast.LENGTH_SHORT).show();
-                } else if(model.getStatus().equals("Selesai")) {
+                } else if (model.getStatus().equals("Selesai")) {
                     Toast.makeText(ChatActivity.this, "Konsultasi sudah diselesaikan", Toast.LENGTH_SHORT).show();
                 } else {
                     showConfirmDialog();
@@ -198,7 +233,7 @@ public class ChatActivity extends AppCompatActivity {
                             .document(model.getUid())
                             .update("status", "Selesai")
                             .addOnCompleteListener(task -> {
-                                if(task.isSuccessful()) {
+                                if (task.isSuccessful()) {
                                     Toast.makeText(ChatActivity.this, "Konsultasi Selesai", Toast.LENGTH_SHORT).show();
                                     binding.send.setEnabled(false);
                                     binding.messageEt.setEnabled(false);
@@ -207,6 +242,46 @@ public class ChatActivity extends AppCompatActivity {
                 })
                 .setNegativeButton("Tidak", null)
                 .show();
+    }
+
+    @SuppressLint("SetTextI18n")
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == Activity.RESULT_OK) {
+            if (requestCode == REQUEST_IMAGE_FROM_GALLERY || requestCode == REQUEST_IMAGE_FROM_CAMERA) {
+                uploadPicture(data.getData());
+            }
+        }
+    }
+
+    private void uploadPicture(Uri data) {
+        StorageReference mStorageRef = FirebaseStorage.getInstance().getReference();
+        ProgressDialog mProgressDialog = new ProgressDialog(this);
+
+        mProgressDialog.setMessage("Mohon tunggu hingga proses selesai...");
+        mProgressDialog.setCanceledOnTouchOutside(false);
+        mProgressDialog.show();
+        String imageFileName = "chat/data_" + System.currentTimeMillis() + ".png";
+
+        mStorageRef.child(imageFileName).putFile(data)
+                .addOnSuccessListener(taskSnapshot ->
+                        mStorageRef.child(imageFileName).getDownloadUrl()
+                                .addOnSuccessListener(uri -> {
+                                    mProgressDialog.dismiss();
+                                    imageText = uri.toString();
+                                    sendMessage(uid, myUid);
+                                })
+                                .addOnFailureListener(e -> {
+                                    mProgressDialog.dismiss();
+                                    Toast.makeText(ChatActivity.this, "Gagal mengunggah gambar", Toast.LENGTH_SHORT).show();
+                                    Log.d("imageDp: ", e.toString());
+                                }))
+                .addOnFailureListener(e -> {
+                    mProgressDialog.dismiss();
+                    Toast.makeText(ChatActivity.this, "Gagal mengunggah gambar", Toast.LENGTH_SHORT).show();
+                    Log.d("imageDp: ", e.toString());
+                });
     }
 
     @Override

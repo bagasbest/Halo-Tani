@@ -32,50 +32,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
-        <ImageView
-            android:id="@+id/imageView4"
-            android:layout_width="30sp"
-            android:layout_height="30sp"
-            android:layout_margin="16dp"
-            android:contentDescription="@string/image"
-            android:src="@drawable/ic_baseline_stars_24"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/view4"
-            app:tint="@color/grey" />
-
-        <TextView
-            android:id="@+id/textView6"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="20dp"
-            android:text="Paket Pertanian"
-            android:textColor="@color/black"
-            app:layout_constraintStart_toEndOf="@+id/imageView4"
-            app:layout_constraintTop_toBottomOf="@+id/view4" />
-
-        <ImageView
-            android:id="@+id/imageView5"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:contentDescription="@string/image"
-            android:layout_marginEnd="10dp"
-            android:padding="5dp"
-            android:src="@drawable/ic_baseline_arrow_forward_ios_24"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/view4" />
-
-        <View
-            android:id="@+id/view5"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginTop="16dp"
-            android:background="@color/grey"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageView4" />
-
 
         <ImageView
             android:id="@+id/imageView6"
@@ -85,7 +41,7 @@
             android:contentDescription="@string/image"
             android:src="@drawable/ic_baseline_place_24"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/view5"
+            app:layout_constraintTop_toBottomOf="@+id/view4"
             app:tint="@color/grey" />
 
         <TextView
@@ -97,7 +53,7 @@
             android:text="Lokasi Tersimpan"
             android:textColor="@color/black"
             app:layout_constraintStart_toEndOf="@+id/imageView6"
-            app:layout_constraintTop_toBottomOf="@+id/view5" />
+            app:layout_constraintTop_toBottomOf="@+id/view4" />
 
         <ImageView
             android:id="@+id/imageView8"
@@ -109,7 +65,7 @@
             android:layout_marginEnd="10dp"
             android:src="@drawable/ic_baseline_arrow_forward_ios_24"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/view5" />
+            app:layout_constraintTop_toBottomOf="@+id/view4" />
 
         <View
             android:id="@+id/view8"
@@ -190,15 +146,14 @@
             app:layout_constraintStart_toEndOf="@+id/imageView9"
             app:layout_constraintTop_toBottomOf="@+id/view9" />
 
-        <ImageView
-            android:id="@+id/imageView12"
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:contentDescription="@string/image"
+            android:text="Indonesia"
             android:padding="5dp"
             android:layout_marginEnd="10dp"
-            android:src="@drawable/ic_baseline_arrow_forward_ios_24"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/view9" />
 

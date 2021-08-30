@@ -161,7 +161,8 @@ public class ConsultationDetailActivity extends AppCompatActivity {
                         consultation.put("status", "Sedang Konsultasi");
                         consultation.put("keahlian", model.getKeahlian());
                         consultation.put("customerDp", ""+documentSnapshot.get("dp"));
-                        consultation.put("online", false);
+                        consultation.put("onlineCustomer", false);
+                        consultation.put("onlineDoctor", false);
 
 
                         FirebaseFirestore

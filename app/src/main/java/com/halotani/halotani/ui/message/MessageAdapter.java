@@ -56,9 +56,9 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
         private CardView cv;
-        private View bg;
+        private View bg, onlineIndicator;
         private ImageView dp;
-        private TextView name, keahlian, status;
+        private TextView name, keahlian, status, onlineText;
 
         public ViewHolder(@NonNull @NotNull View itemView) {
             super(itemView);
@@ -68,6 +68,8 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
             keahlian = itemView.findViewById(R.id.sertifikatKeahlian);
             status = itemView.findViewById(R.id.status);
             bg = itemView.findViewById(R.id.bg);
+            onlineIndicator = itemView.findViewById(R.id.onlineIndicator);
+            onlineText = itemView.findViewById(R.id.onlineText);
         }
 
         public void bind(MessageModel model, String currentUid) {
@@ -78,6 +80,13 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
                         .into(dp);
                 name.setText(model.getDoctorName());
                 keahlian.setText(model.getKeahlian());
+                if(model.isOnlineDoctor()) {
+                    onlineIndicator.setBackground(ContextCompat.getDrawable(itemView.getContext(), R.drawable.rounded_bg));
+                    onlineText.setText("Online");
+                } else {
+                    onlineIndicator.setBackground(ContextCompat.getDrawable(itemView.getContext(), R.drawable.rounded_bg3));
+                    onlineText.setText("Offline");
+                }
             }
             else  {
                 Glide.with(itemView.getContext())
@@ -86,6 +95,13 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
                         .into(dp);
                 name.setText(model.getCustomerName());
                 keahlian.setVisibility(View.GONE);
+                if(model.isOnlineCustomer()) {
+                    onlineIndicator.setBackground(ContextCompat.getDrawable(itemView.getContext(), R.drawable.rounded_bg));
+                    onlineText.setText("Online");
+                } else {
+                    onlineIndicator.setBackground(ContextCompat.getDrawable(itemView.getContext(), R.drawable.rounded_bg3));
+                    onlineText.setText("Offline");
+                }
             }
 
             status.setText(model.getStatus());
